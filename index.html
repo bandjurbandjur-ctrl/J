@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: fill; /* Prikazuje video u punoj rezoluciji */
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ubaci svoj video iz GitHub Pages linka -->
+  <video autoplay muted playsinline loop>
+    <source src="https://tvojeime.github.io/repo/video/video.mp4" type="video/mp4" />
+    Tvoj browser ne podržava video.
+  </video>
+
+</body>
+</html>
