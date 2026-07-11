@@ -1,33 +1,237 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: black;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dosije #127</title>
 
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: fill; /* Prikazuje video u punoj rezoluciji */
-      display: block;
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0b0b0b;
+    color:#00ff88;
+    font-family:Consolas, monospace;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    border:1px solid #00ff88;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 25px rgba(0,255,136,.2);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+p{
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.question{
+    margin-top:25px;
+}
+
+.question h3{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin:10px 0;
+    cursor:pointer;
+}
+
+input[type="text"]{
+    width:100%;
+    padding:12px;
+    background:#111;
+    border:1px solid #00ff88;
+    color:#00ff88;
+    margin-top:10px;
+}
+
+button{
+    margin-top:30px;
+    width:100%;
+    padding:15px;
+    background:#00ff88;
+    color:#000;
+    border:none;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+#error{
+    color:#ff5a5a;
+    margin-top:20px;
+    text-align:center;
+}
+
+#result{
+    display:none;
+    text-align:center;
+}
+
+.big{
+    font-size:38px;
+    margin:25px 0;
+    color:white;
+}
+
+.success{
+    color:#00ff88;
+    margin:10px 0;
+}
+
+.loader{
+    font-size:22px;
+    margin-top:20px;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.3;
     }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <!-- Ubaci svoj video iz GitHub Pages linka -->
-  <video autoplay muted playsinline loop>
-    <source src="https://github.com/bandjurbandjur-ctrl/J/blob/main/VID_20260208_113316.mp4" type="VID_20260208_113316.mp4" />
-    Tvoj browser ne podržava video.
-  </video>
+<div class="container" id="quiz">
+
+<h1>🚨 POVERLJIVO – ODELJENJE ZA PRONALAZAK UKRADENIH POKLONA 🚨</h1>
+
+<p><strong>Predmet:</strong> Godišnjica</p>
+<p><strong>Status:</strong> UKRADENO</p>
+
+<p>
+Prema poslednjim informacijama, poklon je otuđen od strane nepoznatog lica.
+Istražitelji veruju da osoba koja trenutno pristupa ovom sistemu može pomoći u identifikaciji lokacije.
+</p>
+
+<p>
+Potrebno je potvrditi identitet osumnjičene osobe.
+</p>
+
+<h2 style="margin-top:25px;">DOSIJE #127</h2>
+
+<div class="question">
+<h3>1. Odakle potiče osumnjičena?</h3>
+
+<label><input type="radio" name="q1" value="wrong"> Nađena u kanti</label>
+<label><input type="radio" name="q1" value="correct"> Pirot</label>
+<label><input type="radio" name="q1" value="wrong"> Tenerife</label>
+</div>
+
+<div class="question">
+<h3>2. Koji je skriveni talenat osumnjičene?</h3>
+
+<label><input type="radio" name="q2" value="wrong"> Gubljenje u Crash-u</label>
+<label><input type="radio" name="q2" value="correct"> Berba vrganja</label>
+<label><input type="radio" name="q2" value="wrong"> Izbegavanje posla u Euromediku</label>
+</div>
+
+<div class="question">
+<h3>3. Unesite datum godišnjice radi bezbednosne provere.</h3>
+
+<input type="text" id="date" placeholder="Primer: 12.7">
+</div>
+
+<button onclick="checkAnswers()">POTVRDI IDENTITET</button>
+
+<div id="error"></div>
+
+</div>
+
+<div class="container" id="result">
+
+<div class="loader" id="loading">
+DEŠIFROVANJE LOKACIJE...
+</div>
+
+</div>
+
+<script>
+
+function checkAnswers(){
+
+let q1 = document.querySelector('input[name="q1"]:checked');
+let q2 = document.querySelector('input[name="q2"]:checked');
+let date = document.getElementById("date").value
+.trim()
+.replace(/\s/g,'');
+
+if(!q1 || !q2){
+document.getElementById("error").innerText =
+"Molimo odgovorite na sva pitanja.";
+return;
+}
+
+if(
+q1.value === "correct" &&
+q2.value === "correct" &&
+(date === "12.7" || date === "12/7" || date === "12-7")
+){
+
+document.getElementById("quiz").style.display="none";
+document.getElementById("result").style.display="block";
+
+setTimeout(() => {
+
+document.getElementById("result").innerHTML = `
+<p class="success">✔ Identitet potvrđen</p>
+<p class="success">✔ Dosije otključan</p>
+<p class="success">✔ Lokacija dešifrovana</p>
+
+<div class="big">
+📍 PIROTSKI VRGANJI 127
+</div>
+
+<p>
+Poklon je poslednji put lociran na navedenoj adresi.
+</p>
+
+<p style="margin-top:20px;">
+Zbog mogućeg prisluškivanja komunikacije, potrebno je kontaktirati Premijer Taksi i zatražiti vozilo za navedenu lokaciju.
+</p>
+
+<p style="margin-top:20px;">
+Posebnu pažnju obratiti na informaciju o vremenu čekanja vozila.
+</p>
+`;
+
+}, 2500);
+
+}else{
+document.getElementById("error").innerText =
+"Verifikacija neuspešna. Podaci se ne poklapaju sa dosijeom.";
+}
+
+}
+
+</script>
 
 </body>
 </html>
